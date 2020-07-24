@@ -2,4 +2,6 @@
 node_modules
 *.log
 
-pages/keys.js
+/keys
+
+.DS_Store

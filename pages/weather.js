@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout.js';
 import fetch from 'isomorphic-unfetch';
-import API_KEY from './keys';
+import API_KEY from './../keys/keys';
 
 const Weather = (props) => (
     <Layout>
