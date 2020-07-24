@@ -2,4 +2,4 @@
 node_modules
 *.log
 
-./pages/keys.js
+pages/keys.js
