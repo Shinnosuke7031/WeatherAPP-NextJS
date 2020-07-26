@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout.js';
 import fetch from 'isomorphic-unfetch';
-import API_KEY from './../keys/keys';
+//import API_KEY from './../keys/keys';
 
 const Weather = (props) => (
     <Layout>
@@ -15,13 +15,14 @@ const Weather = (props) => (
 );
 
 Weather.getInitialProps = async function() {
-    const res = await fetch("http://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + API_KEY);
+    const res = await fetch("http://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + process.env.API_KEY);
+    await console.log("http://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + process.env.API_KEY);
     const data = await res.json();
-    const celsius = (data.main.temp - 273.15).toFixed(1); //ケルビンを摂氏に変換 //小数1桁
-    const NewHumidity = data.main.humidity.toFixed(1); //小数1桁
-    const show = { ...data, coord: { ...data.coord }, 
-                    weather: {...data.weather}, main: {...data.main ,temp: celsius, humidity: NewHumidity}, 
-                    wind:{...data.wind},  clouds: {...data.clouds}, sys: {...data.sys} };
+    const celsius = await (data.main.temp - 273.15).toFixed(1); //ケルビンを摂氏に変換 //小数1桁
+    const NewHumidity = await data.main.humidity.toFixed(1); //小数1桁
+    const show = await { ...data, coord: { ...data.coord }, 
+                        weather: {...data.weather}, main: {...data.main ,temp: celsius, humidity: NewHumidity}, 
+                        wind:{...data.wind},  clouds: {...data.clouds}, sys: {...data.sys} };
     //console.log(show);
     return { show };
   }
