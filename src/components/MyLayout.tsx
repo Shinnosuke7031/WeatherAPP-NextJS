@@ -9,9 +9,18 @@ const layoutStyle = {
 
 const Layout = (props) => (
   <div>
-    <Header />
-    {props.children}
-    <Footer />
+    <div className="container">
+      <Header />
+      {props.children}
+      <Footer />
+    </div>
+    
+    <style jsx>{`
+      .container {
+        margin: 0 auto;
+        width: 100%;
+      }
+    `}</style>
     <style jsx global>{`
         body {
           margin: 0;
@@ -20,6 +29,7 @@ const Layout = (props) => (
                        "Hiragino Sans", Meiryo, sans-serif; 
         }
       `}</style>
+
   </div>
 )
 

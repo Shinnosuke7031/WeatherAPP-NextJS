@@ -7,27 +7,33 @@ const linkStyle = {
 const Header = () => (
     <div>
         <Link href="/">
-          <a style={linkStyle}>Home</a>
-        </Link>
-        <Link href="/weather">
-          <a style={linkStyle}>Weather</a>
+          <a><span>Weather Information</span></a>
         </Link>
         <style jsx>{`
         div {
           width: 100%;
-          height: 50px;
-          background-color: beige;
+          height: 100px;
+          background-image: url(/sky.jpg);
+          background-repeat: no-repeat;
+          background-size: cover;
           padding: 0;
           margin: 0;
           display: flex;
           justify-content: center;
+          align-items: center;
         }
 
         a {
+          color: black;
           display: inline-block;
           text-align: center;
-          font-size: 30px;
-          width: 200px;
+          font-size: 40px;
+          width: 400px;
+          height: 100%;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         `}</style>
     </div>
