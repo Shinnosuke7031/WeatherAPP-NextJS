@@ -1,20 +1,26 @@
-import Layout from '../components/MyLayout'
-import Link from 'next/link'
+import Layout from '../components/MyLayout';
+import Link from 'next/link';
+import Head from 'next/head';
 
 //const KantoRegion = [Tokyo, Tochigi];
 
 const Index = (props) => (
   <Layout>
-    <h1>現在の気象情報</h1>
-    <Link href="/weather">
-      <a>Tokyo</a>
-    </Link>
+    <Head>
+      <title key="title">Weather Information</title>
+    </Head>
+    <h1>Weather Information</h1>
+    <p>このサイトは、Next.jsのアウトプットとして作成しました。</p>
+    
     <style jsx>{`
       h1 {
         margin: 30px auto;
         width: 500px;
         text-align: center;
-      }  
+      }
+      p {
+        text-align: center;
+      }
     `}</style>
   </Layout>
 )

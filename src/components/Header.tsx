@@ -1,9 +1,5 @@
 import Link from 'next/link'
 
-const linkStyle = {
-  marginRight: 15
-}
-
 const Header = () => (
     <div>
         <Link href="/">
@@ -24,7 +20,6 @@ const Header = () => (
         }
 
         a {
-          color: black;
           display: inline-block;
           text-align: center;
           font-size: 40px;
@@ -34,6 +29,9 @@ const Header = () => (
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+        span {
+          color: black;
         }
         `}</style>
     </div>

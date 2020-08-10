@@ -15,7 +15,10 @@ const Footer = () => (
           margin: 10px auto;
           padding: 10px 0;
           text-align: center;
-          border-top: 1px solid gray; 
+          background-color: grey;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         a {
           color: black;
