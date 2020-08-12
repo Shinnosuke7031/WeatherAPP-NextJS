@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 //const KantoRegion = [Tokyo, Tochigi];
 
-const Index = (props) => (
+const Index = () => (
   <Layout>
     <Head>
       <title key="title">Weather Information</title>

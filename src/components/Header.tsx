@@ -8,7 +8,7 @@ const Header = () => (
         <style jsx>{`
         div {
           width: 100%;
-          height: 100px;
+          height: 80px;
           background-image: url(/sky.jpg);
           background-repeat: no-repeat;
           background-size: cover;
@@ -18,7 +18,6 @@ const Header = () => (
           justify-content: center;
           align-items: center;
         }
-
         a {
           display: inline-block;
           text-align: center;

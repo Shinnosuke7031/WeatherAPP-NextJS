@@ -32,17 +32,18 @@ const Layout = (props) => (
         display: flex;
         flex-direction: column;
         height: 100%;
+        background-color: #EEEEEE;
       }
       .box {
         border: 1px solid black;
         padding: 10px;
-        margin: 0 10px;
+        margin: 20px 10px;
         height: 100%;
       }
       .nav {
         border: 1px solid black;
         padding: 10px;
-        margin: 3px 10px;
+        margin: 20px 10px 0 10px;
         height: 30px;
       }
     `}</style>
@@ -51,7 +52,8 @@ const Layout = (props) => (
           margin: 0;
           padding: 0;
           font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
-                       "Hiragino Sans", Meiryo, sans-serif; 
+                       "Hiragino Sans", Meiryo, sans-serif;
+          background-color: #EEEEEE;
         }
       `}</style>
 

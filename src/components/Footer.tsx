@@ -12,13 +12,13 @@ const Footer = () => (
         div {
           width: 100%;
           height: 50px;
-          margin: 10px auto;
+          margin: 0 auto;
           padding: 10px 0;
           text-align: center;
-          background-color: grey;
           display: flex;
           justify-content: center;
           align-items: center;
+          border-top: 5px black double;
         }
         a {
           color: black;
