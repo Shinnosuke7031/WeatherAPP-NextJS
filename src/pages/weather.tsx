@@ -1,5 +1,4 @@
 import Layout from '../components/MyLayout';
-import API_KEY from '../../keys/keys';
 
 const Weather = (props) => (
     <Layout>
