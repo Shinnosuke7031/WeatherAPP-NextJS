@@ -1,5 +1,4 @@
 import Layout from '../../../components/MyLayout';
-import API_KEY from '../../../../keys/keys';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
@@ -64,8 +63,8 @@ const test = (props: TypeProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query.id;
-  //const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?APPID=` + process.env.API_KEY + `&id=${id}`);
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?APPID=` + API_KEY+ `&id=${id}`);
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?APPID=` + process.env.API_KEY + `&id=${id}`);
+  //const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?APPID=` + API_KEY+ `&id=${id}`);
   const data = await res.json();
   const temp: number = data.main.temp - 273.15;
   const celsius: number = Math.floor((temp*100)/100); //ケルビンを摂氏に変換 //小数1桁
