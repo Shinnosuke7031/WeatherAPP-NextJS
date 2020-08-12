@@ -13,8 +13,8 @@ const Weather = (props) => (
 );
 
 Weather.getInitialProps = async function() {
-    //const res = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + process.env.API_KEY);
-    const res = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + API_KEY);
+    const res = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + process.env.API_KEY);
+    //const res = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Tokyo&APPID=" + API_KEY);
     const data = await res.json();
     const celsius = (data.main.temp - 273.15).toFixed(1); //ケルビンを摂氏に変換 //小数1桁
     const NewHumidity = data.main.humidity.toFixed(1); //小数1桁
