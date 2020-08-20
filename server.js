@@ -13,10 +13,10 @@ app.prepare()
     return handle(req, res);
   });
 
-  server.get('/posts/:name/:lat_lon', (req, res) => {
+  /*server.get('/posts/:name/:lat_lon', (req, res) => {
     console.log(`${req.params.name} & ${req.params.lat_lon}`);
     return app.render(req, res, '/posts', { name: req.params.name, lat_lon: req.params.lat_lon });
-  });
+  });*/
 
   server.listen(3000, (err) => {
     if (err) throw err;

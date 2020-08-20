@@ -152,7 +152,7 @@ const CurrentWeatherEachCity: FC<TypeProps> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const lat_lon = context.query.lat_lon;
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?APPID=` + process.env.API_KEY + `&units=metric&${lat_lon}`);
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?APPID=` + process.env.API_KEY + `&units=metric${lat_lon}`);
   const data = await res.json();
 
   //----------- CurrentInfo -----------//
