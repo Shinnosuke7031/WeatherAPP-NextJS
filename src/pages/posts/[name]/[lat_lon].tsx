@@ -4,8 +4,9 @@ import { GetServerSideProps } from 'next';
 import {FC} from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import useSWR from 'swr';
 
-import HourlyInfo from '../../../components/HourlyInfo';
+import ShowHourlyInfo from '../../../components/HourlyInfo';
 
 type TypeInfo = {
   temp: number;
@@ -33,10 +34,20 @@ interface TypeProps {
   HourlyInfo: TypeHourlyInfo[];
 }
 
-const CurrentWeatherEachCity: FC<TypeProps> = (props) => {
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+const CurrentWeatherEachCity: FC = () => {
   
   const router = useRouter();
   const ShowName = router.query.name;
+  
+  
+  const { data, error } = useSWR(`https://api.openweathermap.org/data/2.5/onecall?APPID= + ${process.env.API_KEY} + &units=metric${router.query.lat_lon}`, fetcher);
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+  const CurrentInfo: TypeInfo = setCurrentData(data.current);
+  const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);
+  
   return (
     <Layout>
         <Head>
@@ -45,34 +56,34 @@ const CurrentWeatherEachCity: FC<TypeProps> = (props) => {
 
       <div className="container">
         <h1>現在の気象情報 </h1>
-        <p>({`${props.CurrentInfo.date[0]}/${props.CurrentInfo.date[1]}/${props.CurrentInfo.date[2]} ${props.CurrentInfo.date[3]}時${props.CurrentInfo.date[4]}分`})</p>
+        <p>({`${CurrentInfo.date[0]} ${CurrentInfo.date[1]}時${CurrentInfo.date[2]}分`})</p>
         
         <div className="box">
 
           <h2>{ShowName}</h2>
 
           <div className="current-info">
-            <p className="current-text">温度</p> <p className="center-sig">：</p> <p className="current-text"> {props.CurrentInfo.temp}℃ </p>
+            <p className="current-text">温度</p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.temp}℃ </p>
           </div>
           <div className="current-info">
-            <p className="current-text">湿度 </p> <p className="center-sig">：</p> <p className="current-text"> {props.CurrentInfo.humidity}% </p>
+            <p className="current-text">湿度 </p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.humidity}% </p>
           </div>
           <div className="current-info">
-            <p className="current-text">{props.CurrentInfo.deg} </p> <p className="center-sig">：</p> <p className="current-text"> {props.CurrentInfo.speed} m/s</p>
+            <p className="current-text">{CurrentInfo.deg} </p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.speed} m/s</p>
           </div>
 
           <div className="weather-info">
-            <p> {props.CurrentInfo.weather} </p>
+            <p> {CurrentInfo.weather} </p>
             <div>
-              <img src={`https://openweathermap.org/img/w/`+ props.CurrentInfo.icon + `.png` } />
+              <img src={`https://openweathermap.org/img/w/`+ CurrentInfo.icon + `.png` } />
             </div>
           </div>
 
         </div>       
       </div>
       
-      <HourlyInfo hourlyInfo={props.HourlyInfo} />
-        
+      <ShowHourlyInfo hourlyInfo={HourlyInfo} />
+  
       <Link href="/weather"><a className="back">戻る</a></Link>
       <style jsx>{`
         p {
@@ -150,9 +161,64 @@ const CurrentWeatherEachCity: FC<TypeProps> = (props) => {
   )
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+const setCurrentData = (data: any) => {
+  //----------- CurrentInfo -----------//
+  //date time
+  const dt = new Date(data.dt * 1000);//Dateがミリ秒なので1000倍が必要
+  const dateStr = dt.toLocaleDateString('ja-JP');
+  const date = dateStr.split('-');//[0]:Year, [1]:Month, [2]:Date
+  const t = dt.toLocaleTimeString('ja-JP');
+  const time = t.split(':');
+  const DateTime: string[] = [...date, ...time];
+  
+  //天気アイコン
+  const icon: string = data.weather[0].icon;
+  //to int
+  const temp: number = Math.round(data.temp);
+  const humidity: number = Math.round(data.humidity);
+  //天気のテキスト
+  const weather: string = get_weather_string(icon);
+  //風向きと風速
+  const deg: string = get_deg_string(data.wind_deg);
+  const speed: number = Math.round(data.wind_speed);
+  
+  const CurrentInfo: TypeInfo = { temp: temp, humidity: humidity, icon: icon, weather: weather, deg: deg, speed: speed, date: DateTime };
+
+  return CurrentInfo;
+}
+
+const setHourlyInfo = (data: any) => {
+  const hourlyData24h = data.slice(1, 25);
+  const HourlyInfo0: TypeHourlyInfo[] = hourlyData24h.map((info: any, index: number)=>{
+    //24時間分の年月日時間を取得, [0]:Year, [1]:Month, [2]:Date, ([3]時:[4]m:[5]s)
+    const dt = new Date(info.dt * 1000);//Dateがミリ秒なので1000倍が必要
+    const dateStr: string = dt.toLocaleDateString('ja-JP');
+    const date = dateStr.split('-');
+    const t: string = dt.toLocaleTimeString('ja-JP');
+    const time = t.split(':');
+    const DateTime: string[] = [...date, ...time];
+    //24時間分の温度を取得
+    const hourlyTemp: number = Math.round(info.temp);
+    const hourlyHumidity: number = Math.round(info.humidity);
+    //24時間分の天気(& icon)
+    const hourlyWeatherIcon: string = info.weather[0].icon;
+    const hourlyWeather: string = get_weather_string(hourlyWeatherIcon);
+    //風向きと風速
+    const deg: string = get_deg_string(info.wind_deg);
+    const speed: number = Math.round(info.wind_speed);
+    //降水確率
+    const pop: number = Math.round(info.pop * 100);
+    if ((index+1)%3 == 0) {
+      return ({ temp: hourlyTemp, humidity: hourlyHumidity , icon: hourlyWeatherIcon, weather: hourlyWeather, deg: deg, speed: speed, dt: DateTime, pop: pop });
+    }
+  })
+  const HourlyInfo =  HourlyInfo0.filter(n => n !== undefined);
+  return HourlyInfo;
+};
+
+/*export const getServerSideProps: GetServerSideProps = async (context) => {
   const lat_lon = context.query.lat_lon;
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?APPID=` + process.env.API_KEY + `&units=metric${lat_lon}`);
+  //const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?APPID=` + process.env.API_KEY + `&units=metric${lat_lon}`);
   
   const data = await res.json();
 
@@ -206,8 +272,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
   const HourlyInfo =  HourlyInfo0.filter(n => n !== undefined);
   
-  return { props: { CurrentInfo, HourlyInfo } };
-};
+  return {  { CurrentInfo, HourlyInfo } };
+};*/
 
 const get_weather_string = (s: string) => {
   if (s.includes('01')) return '晴れ';

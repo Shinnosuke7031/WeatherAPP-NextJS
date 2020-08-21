@@ -15,7 +15,7 @@ interface TypeProps {
   hourlyInfo: TypeHourlyInfo[];
 };
 
-const HourlyInfo: React.FC<TypeProps> = (props) => {
+const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
   
   return (
     <div className="container">
@@ -29,7 +29,7 @@ const HourlyInfo: React.FC<TypeProps> = (props) => {
         </div>
         {props.hourlyInfo.map((info: TypeHourlyInfo, index)=>(
           <div className="boxs" key={index}>
-            <h1>{`${info.dt[3]}:${info.dt[4]}`}</h1>
+            <h1>{`${info.dt[1]}:${info.dt[2]}`}</h1>
             <p> {info.temp}℃ </p>
             <p> {info.humidity}% </p>
             <p> {info.pop}%</p>
@@ -93,4 +93,4 @@ const HourlyInfo: React.FC<TypeProps> = (props) => {
 
 };
 
-export default HourlyInfo;
+export default ShowHourlyInfo;
