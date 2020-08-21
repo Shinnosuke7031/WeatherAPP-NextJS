@@ -12,6 +12,13 @@ const Index = () => (
     <h1>Weather Information</h1>
     <p>このサイトは、Next.jsのアウトプットとして作成しました。</p>
     
+    <div>
+      <p className="subtitle">気象情報</p>
+      <p className="subtitle"> : </p>
+      <Link href="/ja-weather"><a><span>全国</span></a></Link>
+      <Link href="/weather"><a><span>関東</span></a></Link>
+    </div>
+    
     <style jsx>{`
       h1 {
         margin: 30px auto;
@@ -20,6 +27,22 @@ const Index = () => (
       }
       p {
         text-align: center;
+      }
+      div {
+        color: black;
+        margin: 80px auto;
+        display: flex;
+        justify-content: center;
+      }
+      a {
+        margin: 0 10px 0 10px;
+        font-size: 20px;
+        color: black;
+      }
+      .subtitle {
+        margin: 0 10px 0 10px;
+        font-weight: bold;
+        font-size: 20px;
       }
     `}</style>
   </Layout>
