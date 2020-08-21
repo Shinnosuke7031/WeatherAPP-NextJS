@@ -1,7 +1,6 @@
 import Layout from '../../../components/MyLayout';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
-import {FC} from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import useSWR from 'swr';
@@ -29,23 +28,39 @@ type TypeHourlyInfo = {
   pop: number;
 }
 
-interface TypeProps {
-  CurrentInfo: TypeInfo;
-  HourlyInfo: TypeHourlyInfo[];
-}
-
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const CurrentWeatherEachCity: FC = () => {
+const CurrentWeatherEachCity: React.FC = () => {
   
+  const [isLoading, setIsLoading] = useState('');
+
   const router = useRouter();
   const ShowName = router.query.name;
   const posi = router.query.lat_lon;
-  const { data, error } = useSWR('https://api.openweathermap.org/data/2.5/onecall?APPID=' + process.env.WEATHER_API_KEY + '&units=metric' + posi, fetcher);
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  let loading;
+  //const { data, error } = useSWR('https://api.openweathermap.org/data/2.5/onecall?APPID=' + process.env.WEATHER_API_KEY + '&units=metric' + posi, fetcher);
+  const { data, error } = useSWR<any, Error> (`https://api.openweathermap.org/data/2.5/onecall?APPID=3f11b5a6b572ec888cb9712102c72153&units=metric${posi}`, fetcher);
+  if (error) {
+    return (
+      <Layout>
+        <div>{error.message}</div>
+      </Layout>
+    );
+  }
+  else if (!data) {
+    return (
+      <Layout>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", backgroundColor: "#EEEEEE"}}>
+          <p style={{fontSize: "40px"}}>Loading...</p>
+        </div>
+      </Layout>
+      
+    );
+  }
   const CurrentInfo: TypeInfo = setCurrentData(data.current);
-  const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);
+  const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);  
+  
+  
   
   return (
     <Layout>
@@ -214,65 +229,6 @@ const setHourlyInfo = (data: any) => {
   const HourlyInfo =  HourlyInfo0.filter(n => n !== undefined);
   return HourlyInfo;
 };
-
-/*export const getServerSideProps: GetServerSideProps = async (context) => {
-  const lat_lon = context.query.lat_lon;
-  //const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?APPID=` + process.env.API_KEY + `&units=metric${lat_lon}`);
-  
-  const data = await res.json();
-
-  //----------- CurrentInfo -----------//
-  //date time
-  const dt = new Date(data.current.dt * 1000);//Dateがミリ秒なので1000倍が必要
-  const dateStr = dt.toLocaleDateString('ja-JP');
-  const date = dateStr.split('-');//[0]:Year, [1]:Month, [2]:Date
-  const t = dt.toLocaleTimeString('ja-JP');
-  const time = t.split(':');
-  const DateTime: string[] = [...date, ...time];
-  
-  //天気アイコン
-  const icon: string = data.current.weather[0].icon;
-  //to int
-  const temp: number = Math.round(data.current.temp);
-  const humidity: number = Math.round(data.current.humidity);
-  //天気のテキスト
-  const weather: string = get_weather_string(icon);
-  //風向きと風速
-  const deg: string = get_deg_string(data.current.wind_deg);
-  const speed: number = Math.round(data.current.wind_speed);
-  
-  const CurrentInfo: TypeInfo = { temp: temp, humidity: humidity, icon: icon, weather: weather, deg: deg, speed: speed, date: DateTime };
-
-  //----------- HourlyInfo -----------//
-  const hourlyData0 = data.hourly;
-  const hourlyData24h = hourlyData0.slice(1, 25);
-  const HourlyInfo0: TypeHourlyInfo[] = hourlyData24h.map((info: any, index: number)=>{
-    //24時間分の年月日時間を取得, [0]:Year, [1]:Month, [2]:Date, ([3]時:[4]m:[5]s)
-    const dt = new Date(info.dt * 1000);//Dateがミリ秒なので1000倍が必要
-    const dateStr: string = dt.toLocaleDateString('ja-JP');
-    const date = dateStr.split('-');
-    const t: string = dt.toLocaleTimeString('ja-JP');
-    const time = t.split(':');
-    const DateTime: string[] = [...date, ...time];
-    //24時間分の温度を取得
-    const hourlyTemp: number = Math.round(info.temp);
-    const hourlyHumidity: number = Math.round(info.humidity);
-    //24時間分の天気(& icon)
-    const hourlyWeatherIcon: string = info.weather[0].icon;
-    const hourlyWeather: string = get_weather_string(hourlyWeatherIcon);
-    //風向きと風速
-    const deg: string = get_deg_string(info.wind_deg);
-    const speed: number = Math.round(info.wind_speed);
-    //降水確率
-    const pop: number = Math.round(info.pop * 100);
-    if ((index+1)%3 == 0) {
-      return ({ temp: hourlyTemp, humidity: hourlyHumidity , icon: hourlyWeatherIcon, weather: hourlyWeather, deg: deg, speed: speed, dt: DateTime, pop: pop });
-    }  
-  });
-  const HourlyInfo =  HourlyInfo0.filter(n => n !== undefined);
-  
-  return {  { CurrentInfo, HourlyInfo } };
-};*/
 
 const get_weather_string = (s: string) => {
   if (s.includes('01')) return '晴れ';
