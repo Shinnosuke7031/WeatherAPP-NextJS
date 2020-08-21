@@ -47,6 +47,7 @@ const CurrentWeatherEachCity: FC = () => {
   if (!data) return <div>loading...</div>;
   const CurrentInfo: TypeInfo = setCurrentData(data.current);
   const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);
+  console.log(data);
   
   return (
     <Layout>
