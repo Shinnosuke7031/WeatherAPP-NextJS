@@ -132,7 +132,8 @@ const CurrentWeather: FC = () => (
       .back {
           font-size: 16px;
           color: black;
-          margin: 20px auto;
+          margin: 0 auto;
+          margin-top: 50px;         
           width: 80px;
           height: line-height;
           display: flex;

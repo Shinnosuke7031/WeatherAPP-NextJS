@@ -5,7 +5,9 @@ const Nav: FC = () => {
   return (
     <div>
       <Link href="/"><a><span>Home</span></a></Link>
-      <Link href="/weather"><a><span>関東の気象情報</span></a></Link>
+      <Link href="/ja-weather"><a><span>全国</span></a></Link>
+      <Link href="/weather"><a><span>関東</span></a></Link>
+      
 
       <style jsx>{`
         div {
