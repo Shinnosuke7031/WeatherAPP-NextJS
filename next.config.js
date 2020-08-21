@@ -7,5 +7,9 @@ module.exports = {
 
     }
     return config
+  },
+  env: {
+    // Reference a variable that was defined in the .env file and make it available at Build Time
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   }
 }
