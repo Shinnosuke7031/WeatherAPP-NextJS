@@ -42,7 +42,8 @@ const CurrentWeatherEachCity: FC = () => {
   const ShowName = router.query.name;
   const key = process.env.WEATHER_API_KEY;
   const posi = router.query.lat_lon;
-  
+  console.log(posi);
+  console.log(key)
   const { data, error } = useSWR('https://api.openweathermap.org/data/2.5/onecall?APPID=' + key + '&units=metric' + posi, fetcher);
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;

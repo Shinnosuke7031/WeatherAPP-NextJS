@@ -39,6 +39,7 @@ const CurrentWeather: FC = () => (
         ))}
       </ul>
     </div>
+        <p>{process.env.WEATHER_API_KEY}</p>
 
     <Link href="/"><a className="back">戻る</a></Link>
     
