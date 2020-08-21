@@ -41,12 +41,11 @@ const CurrentWeatherEachCity: FC = () => {
   const router = useRouter();
   const ShowName = router.query.name;
   
-  const { data, error } = useSWR(`https://api.openweathermap.org/data/2.5/onecall?APPID= + ${process.env.WEATHER_API_KEY} + &units=metric${router.query.lat_lon}`, fetcher);
+  const { data, error } = useSWR(`https://api.openweathermap.org/data/2.5/onecall?APPID=${process.env.WEATHER_API_KEY}&units=metric${router.query.lat_lon}`, fetcher);
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
   const CurrentInfo: TypeInfo = setCurrentData(data.current);
   const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);
-  console.log(data);
   
   return (
     <Layout>
