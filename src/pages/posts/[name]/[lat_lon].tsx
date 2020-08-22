@@ -6,6 +6,7 @@ import Head from 'next/head';
 import useSWR from 'swr';
 
 import ShowHourlyInfo from '../../../components/HourlyInfo';
+import ShowDailyInfo from '../../../components/DailyInfo';
 
 type TypeInfo = {
   temp: number;
@@ -17,8 +18,20 @@ type TypeInfo = {
   date: string[];
 }
 
-type TypeHourlyInfo = {
+type TypeInfo2 = {
   temp: number;
+  humidity: number;
+  icon: string;
+  weather: string;
+  deg: number;
+  speed: number;
+  dt: string[];
+  pop: number;
+}
+
+type TypeDailyInfo = {
+  MaxTemp: number;
+  MinTemp: number;
   humidity: number;
   icon: string;
   weather: string;
@@ -36,7 +49,6 @@ const CurrentWeatherEachCity: React.FC = () => {
   const ShowName = router.query.name;
   const posi = router.query.lat_lon;
   const { data, error } = useSWR('https://api.openweathermap.org/data/2.5/onecall?APPID=' + process.env.WEATHER_API_KEY + '&units=metric' + posi, fetcher);
-  
   if (error) {
     return (
       <Layout>
@@ -55,26 +67,24 @@ const CurrentWeatherEachCity: React.FC = () => {
     );
   }
   const CurrentInfo: TypeInfo = setCurrentData(data.current);
-  const HourlyInfo: TypeHourlyInfo[] = setHourlyInfo(data.hourly);  
-  
-  
+  const HourlyInfo: TypeInfo2[] = setHourlyInfo(data.hourly);
+  const DailyInfo: TypeDailyInfo[] = setDailyInfo(data.daily);
   
   return (
     <Layout>
-        <Head>
-          <title key="title"> {ShowName}の気象情報 </title>
-        </Head>
+      <Head>
+        <title key="title"> {ShowName}の気象情報 </title>
+      </Head>
 
       <div className="container">
-        <h1>現在の気象情報 </h1>
-        <p>({`${CurrentInfo.date[0]} ${CurrentInfo.date[1]}時${CurrentInfo.date[2]}分`})</p>
-        
         <div className="box">
-
+          <h1>現在の天気 </h1>
+          <div style={{borderTop: "1px dotted black"}}></div>
+          <p>({`${CurrentInfo.date[0]} ${CurrentInfo.date[1]}時${CurrentInfo.date[2]}分`})</p>
           <h2>{ShowName}</h2>
 
           <div className="current-info">
-            <p className="current-text">温度</p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.temp}℃ </p>
+            <p className="current-text">気温</p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.temp}℃ </p>
           </div>
           <div className="current-info">
             <p className="current-text">湿度 </p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.humidity}% </p>
@@ -90,12 +100,16 @@ const CurrentWeatherEachCity: React.FC = () => {
             </div>
           </div>
 
-        </div>       
+        </div>
+
+        <ShowHourlyInfo hourlyInfo={HourlyInfo} />
+
       </div>
+
+      <ShowDailyInfo dailyInfo={DailyInfo} />
+
+      <p className="back" onClick={() => router.back()}>戻る</p>
       
-      <ShowHourlyInfo hourlyInfo={HourlyInfo} />
-  
-      <Link href="/weather"><a className="back">戻る</a></Link>
       <style jsx>{`
         p {
           display: flex;
@@ -103,11 +117,8 @@ const CurrentWeatherEachCity: React.FC = () => {
           align-items: center;
         }
         h1 {
-          margin: 10px auto;
-          width: 500px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          margin: 0 0 10px 0;
+          font-size: 30px;
           text-align: center;
         }
         h2 {
@@ -130,25 +141,29 @@ const CurrentWeatherEachCity: React.FC = () => {
         }
         .container {
           margin: 0 auto;
-          width: 60%;
+          width: 1200px;
           text-align: center;
           font-size: 15px;
+          display: flex;
+          justify-content: center;
         }
         .box {
-          border-top: 1px dotted silver;
-          border-bottom: 1px dotted silver;
-          width: 200px;
-          margin: 0 auto;
+          border-bottom: 1px dotted black;
+          width: 250px;
+          margin: 0 20px 0 0;
         }
         .back {
           font-size: 16px;
           color: black;
-          margin: 20px auto;
+          margin: 0 auto;
+          margin-top: 50px;         
           width: 80px;
-          height: 30px;
+          height: line-height;
           display: flex;
-          flex-direction: row;
           justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          text-decoration: underline;
         }
         .weather-info {
           margin: 0 auto;
@@ -164,6 +179,7 @@ const CurrentWeatherEachCity: React.FC = () => {
           
         }
         .weather-info div {
+          margin: 0;
           height: 100%;
         }
       `}</style>
@@ -200,11 +216,11 @@ const setCurrentData = (data: any) => {
 
 const setHourlyInfo = (data: any) => {
   const hourlyData24h = data.slice(1, 25);
-  const HourlyInfo0: TypeHourlyInfo[] = hourlyData24h.map((info: any, index: number)=>{
+  const HourlyInfo0: TypeInfo2[] = hourlyData24h.map((info: any, index: number)=>{
     //24時間分の年月日時間を取得, [0]:Year, [1]:Month, [2]:Date, ([3]時:[4]m:[5]s)
     const dt = new Date(info.dt * 1000);//Dateがミリ秒なので1000倍が必要
     const dateStr: string = dt.toLocaleDateString('ja-JP');
-    const date = dateStr.split('-');
+    const date = dateStr.split('/');
     const t: string = dt.toLocaleTimeString('ja-JP');
     const time = t.split(':');
     const DateTime: string[] = [...date, ...time];
@@ -225,6 +241,34 @@ const setHourlyInfo = (data: any) => {
   })
   const HourlyInfo =  HourlyInfo0.filter(n => n !== undefined);
   return HourlyInfo;
+};
+
+const setDailyInfo = (data: any) => {
+  const DailyData = data;
+  const DailyInfo0: TypeDailyInfo[] = DailyData.map((info: any, index: number)=>{
+    //24時間分の年月日時間を取得, [0]:Year, [1]:Month, [2]:Date, ([3]時:[4]m:[5]s)
+    const dt = new Date(info.dt * 1000);//Dateがミリ秒なので1000倍が必要
+    const dateStr: string = dt.toLocaleDateString('ja-JP');
+    const date = dateStr.split('/');
+    const t: string = dt.toLocaleTimeString('ja-JP');
+    const time = t.split(':');
+    const DateTime: string[] = [...date, ...time];
+    //24時間分の温度を取得
+    const MaxTemp: number = Math.round(info.temp.max);
+    const MinTemp: number = Math.round(info.temp.min);
+    const hourlyHumidity: number = Math.round(info.humidity);
+    //24時間分の天気(& icon)
+    const hourlyWeatherIcon: string = info.weather[0].icon;
+    const hourlyWeather: string = get_weather_string(hourlyWeatherIcon);
+    //風向きと風速
+    const deg: string = get_deg_string(info.wind_deg);
+    const speed: number = Math.round(info.wind_speed);
+    //降水確率
+    const pop: number = Math.round(info.pop * 100);
+    return ({ MaxTemp: MaxTemp, MinTemp: MinTemp, humidity: hourlyHumidity , icon: hourlyWeatherIcon, weather: hourlyWeather, deg: deg, speed: speed, dt: DateTime, pop: pop });
+  })
+  const DailyInfo =  DailyInfo0.filter(n => n !== undefined);
+  return DailyInfo;
 };
 
 const get_weather_string = (s: string) => {

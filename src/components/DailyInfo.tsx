@@ -1,7 +1,8 @@
 import React from 'react';
 
-type TypeHourlyInfo = {
-  temp: number;
+type TypeDailyInfo = {
+  MaxTemp: number;
+  MinTemp: number;
   humidity: number;
   icon: string;
   weather: string;
@@ -9,28 +10,31 @@ type TypeHourlyInfo = {
   speed: number;
   dt: string[];
   pop: number;
-};
+}
 
 interface TypeProps {
-  hourlyInfo: TypeHourlyInfo[];
+  dailyInfo: TypeDailyInfo[];
 };
 
-const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
+const ShowDailyInfo: React.FC<TypeProps> = (props) => {
   
   return (
     <div className="container">
-      <h1　className="hourly-title">3時間ごとの天気</h1>
+      <h1　className="hourly-title">週間天気</h1>
       <div className="wrap">
         <div className="nav">
-          <p>温度</p>
-          <p>気温</p>
+          <p><span className="color_Red">最高気温</span></p>
+          <p><span className="color_Blue">最低気温</span></p>
+          <p>湿度</p>
           <p>降水確率</p>
           <p>天気</p>
         </div>
-        {props.hourlyInfo.map((info: TypeHourlyInfo, index)=>(
+        {props.dailyInfo.map((info: TypeDailyInfo, index)=>{
+          if (index != 0) return (
           <div className="boxs" key={index}>
-            <h1>{`${info.dt[3]}:${info.dt[4]}`}</h1>
-            <p> {info.temp}℃ </p>
+            <h1>{`${info.dt[1]}/${info.dt[2]}`}</h1>
+            <p> {info.MaxTemp}℃ </p>
+            <p> {info.MinTemp}℃ </p>
             <p> {info.humidity}% </p>
             <p> {info.pop}%</p>
             <div className="weather-info">
@@ -40,11 +44,12 @@ const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
       <style jsx>{`
         .container {
-          margin: 0 0 0 20px;
+          margin: 40px auto 70px;
           width: 800px;
         }
         .hourly-title {
@@ -89,10 +94,16 @@ const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
           justify-content: center;
           align-items: center;
         }
+        .color_Red {
+          color: red;
+        }
+        .color_Blue {
+          color: #05c;
+        }
       `}</style>
     </div>
   );
 
 };
 
-export default ShowHourlyInfo;
+export default ShowDailyInfo;

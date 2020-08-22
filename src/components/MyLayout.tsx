@@ -26,25 +26,29 @@ const Layout = (props) => (
     <style jsx>{`
       .container {
         margin: 0 auto;
-        width: 100%;
+        width: 100vw;
       }
       .main {
         display: flex;
         flex-direction: column;
+        width: 100vw;
         height: 100%;
         background-color: #EEEEEE;
       }
       .box {
-        border: 1px solid black;
         padding: 10px;
         margin: 20px 10px;
         height: 100%;
       }
       .nav {
-        border: 1px solid black;
-        padding: 10px;
-        margin: 20px 10px 0 10px;
-        height: 30px;
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+        line-height: 1.22;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        padding: 10px 0 10px 0;
       }
     `}</style>
     <style jsx global>{`
@@ -54,28 +58,6 @@ const Layout = (props) => (
           font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
                        "Hiragino Sans", Meiryo, sans-serif;
           background-color: #EEEEEE;
-        }
-        .box17{
-          margin:2em 0;
-          position: relative;
-          padding: 0.5em 1.5em;
-          border-top: solid 2px black;
-          border-bottom: solid 2px black;
-        }
-        .box17:before, .box17:after{
-          content: '';
-          position: absolute;
-          top: -10px;
-          width: 2px;
-          height: -webkit-calc(100% + 20px);
-          height: calc(100% + 20px);
-          background-color: black;
-        }
-        .box17:before {left: 10px;}
-        .box17:after {right: 10px;}
-        .box17 p {
-          margin: 0; 
-          padding: 0;
         }
         div {
           margin: 0;

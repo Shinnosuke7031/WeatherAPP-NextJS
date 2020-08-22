@@ -10,7 +10,7 @@ const Footer = () => (
 
       <style jsx>{`
         div {
-          width: 100%;
+          width: 100vw;
           height: 50px;
           margin: 0 auto;
           padding: 10px 0;

@@ -3,11 +3,11 @@ import Link from 'next/link'
 const Header = () => (
     <div>
         <Link href="/">
-          <a><span>Weather Information</span></a>
+          <a>Weather Information</a>
         </Link>
         <style jsx>{`
         div {
-          width: 100%;
+          width: 100vw;
           height: 80px;
           background-image: url(/sky.jpg);
           background-repeat: no-repeat;
@@ -23,13 +23,10 @@ const Header = () => (
           text-align: center;
           font-size: 40px;
           width: 400px;
-          height: 100%;
           text-decoration: none;
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        span {
           color: black;
         }
         `}</style>

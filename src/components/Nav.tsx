@@ -4,22 +4,23 @@ import {FC} from 'react'
 const Nav: FC = () => {
   return (
     <div>
-      <Link href="/"><a><span>Home</span></a></Link>
-      <Link href="/ja-weather"><a><span>全国</span></a></Link>
-      <Link href="/weather"><a><span>関東</span></a></Link>
+      <Link href="/"><a>Home</a></Link>
+      <Link href="/ja-weather"><a>全国</a></Link>
+      <Link href="/kanto"><a>関東</a></Link>
       
 
       <style jsx>{`
         div {
           display: flex;
+          width: 100%;
         }
         a {
-          margin: 0 10px;
-          font-size: 18px;
+          margin: 0 20px;
+          font-size: 16px;
           display: flex;
           justify-content: center;
           align-items: center;
-          color: black;
+          color: #05c;
         }
       `}</style>
     </div>

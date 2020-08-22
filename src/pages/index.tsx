@@ -15,8 +15,8 @@ const Index = () => (
     <div>
       <p className="subtitle">気象情報</p>
       <p className="subtitle"> : </p>
-      <Link href="/ja-weather"><a><span>全国</span></a></Link>
-      <Link href="/weather"><a><span>関東</span></a></Link>
+      <Link href="/ja-weather"><a>全国</a></Link>
+      <Link href="/kanto"><a>関東</a></Link>
     </div>
     
     <style jsx>{`
@@ -47,16 +47,5 @@ const Index = () => (
     `}</style>
   </Layout>
 )
-
-/*Index.getInitialProps = async function() {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-  const data = await res.json();
-
-  console.log(`Show data fetched. Count: ${data.length}`);
-
-  return {
-    shows: data
-  }
-}*/
 
 export default Index;
