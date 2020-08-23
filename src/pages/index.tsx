@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout';
-import Link from 'next/link';
+import ShowArea from '../components/ShowArea';
+
 import Head from 'next/head';
 
 //const KantoRegion = [Tokyo, Tochigi];
@@ -10,14 +11,10 @@ const Index = () => (
       <title key="title">Weather Information</title>
     </Head>
     <h1>Weather Information</h1>
-    <p>このサイトは、Next.jsのアウトプットとして作成しました。</p>
-    
-    <div>
-      <p className="subtitle">気象情報</p>
-      <p className="subtitle"> : </p>
-      <Link href="/ja-weather"><a>全国</a></Link>
-      <Link href="/kanto"><a>関東</a></Link>
-    </div>
+    <p>このサイトは、Next.jsのアウトプットとして作成しています。</p>
+    <p>今後も改善、および対応エリアやコンテンツの追加を行います。</p>
+
+    <ShowArea />
     
     <style jsx>{`
       h1 {

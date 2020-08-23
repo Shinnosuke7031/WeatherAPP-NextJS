@@ -1,7 +1,7 @@
 import Layout from '../../../components/MyLayout';
+import ShowArea from '../../../components/ShowArea';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Head from 'next/head';
 import useSWR from 'swr';
 
@@ -109,6 +109,8 @@ const CurrentWeatherEachCity: React.FC = () => {
       <ShowDailyInfo dailyInfo={DailyInfo} />
 
       <p className="back" onClick={() => router.back()}>戻る</p>
+
+      <ShowArea />
       
       <style jsx>{`
         p {
@@ -156,7 +158,7 @@ const CurrentWeatherEachCity: React.FC = () => {
           font-size: 16px;
           color: black;
           margin: 0 auto;
-          margin-top: 50px;         
+          margin: 50px auto;         
           width: 80px;
           height: line-height;
           display: flex;

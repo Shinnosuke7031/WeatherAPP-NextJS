@@ -1,4 +1,6 @@
 import Layout from '../components/MyLayout';
+import ShowArea from '../components/ShowArea';
+import KantoRegion from '../api/KantoRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';
@@ -9,16 +11,6 @@ interface TypeKanto {
   show: string;
   lat_lon: string;
 }
-
-const KantoRegion: TypeKanto[] = [
-                                  {id: 1850147, name: 'Tokyo', show: '東京', lat_lon: '&lat=35.681236&lon=139.767125'},
-                                  {id: 1849053, name: 'Utsunomiya', show: '宇都宮', lat_lon: '&lat=36.56583&lon=139.883606'},
-                                  {id: 2111901, name: 'Mito', show: '水戸', lat_lon: '&lat=36.341389&lon=140.446671'},
-                                  {id: 1857843, name: 'Maebashi', show: '前橋', lat_lon: '&lat=36.391109&lon=139.060837'},
-                                  {id: 6940394, name: 'Saitama', show: 'さいたま', lat_lon: '&lat=35.90807&lon=139.65657'},
-                                  {id: 1848354, name: 'Yokohama', show: '横浜', lat_lon: '&lat=35.447781&lon=139.642502'},
-                                  {id: 2113015, name: 'Chiba', show: '千葉', lat_lon: '&lat=35.604721&lon=140.123337'},
-                                 ];
 
 const CurrentWeather: FC = () => (
   <Layout>
@@ -41,6 +33,8 @@ const CurrentWeather: FC = () => (
     </div>
 
     <Link href="/"><a className="back">戻る</a></Link>
+
+    <ShowArea />
     
     <style jsx>{`
       h1 {
@@ -70,7 +64,7 @@ const CurrentWeather: FC = () => (
         position: relative;
       }
       .map ul {
-        list-style-type: none
+        list-style-type: none;
       }
       .Tokyo {
         display: flex;
@@ -132,8 +126,7 @@ const CurrentWeather: FC = () => (
       .back {
           font-size: 16px;
           color: black;
-          margin: 0 auto;
-          margin-top: 50px;         
+          margin: 50px auto;
           width: 80px;
           height: line-height;
           display: flex;
