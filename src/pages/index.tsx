@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
+import NarrowDown from '../components/NarrowDown';
 
 import Head from 'next/head';
 
@@ -11,10 +12,12 @@ const Index = () => (
       <title key="title">Weather Information</title>
     </Head>
     <h1>Weather Information</h1>
+    <NarrowDown />
     <p>このサイトは、Next.jsのアウトプットとして作成しています。</p>
     <p>今後も改善、および対応エリアやコンテンツの追加を行います。</p>
 
     <ShowArea />
+
     
     <style jsx>{`
       h1 {

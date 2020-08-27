@@ -44,17 +44,17 @@ const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
       </div>
       <style jsx>{`
         .container {
-          margin: 0 0 0 20px;
-          width: 800px;
+          margin: 20px auto;
+          width: 100%;
         }
         .hourly-title {
-          margin: 0;
+          margin: 0 auto;
           width: 800px;
           font-size: 30px;
           text-align: center;
         }
         .wrap {
-          margin: 10px 0 0 0;
+          margin: 10px auto 0;
           display: flex;
           flex-direction: row;
           justify-content: center;

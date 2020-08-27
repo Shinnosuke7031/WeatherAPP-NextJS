@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 
-import JapanArea from '../api/JapanArea';
 import KantoRegion from '../api/KantoRegion';
 import TouhokuRegion from  '../api/TouhokuRegion';
+import ChubuRegion from '../api/ChubuRegion';
 
 
 const ShowArea: React.FC = () => {
@@ -11,14 +11,6 @@ const ShowArea: React.FC = () => {
   return (
     <div className="container">      
       <ul>
-        <li className="region"><Link href="/ja-weather"><a>全国</a></Link></li>
-        {JapanArea.map((city)=>(
-          <li key={city.id}>
-            <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
-          </li>
-        ))}
-      </ul>
-      <ul style={{borderTop: "1px solid black"}}>
         <li className="region"><Link href="/kanto"><a>関東</a></Link></li>
         {KantoRegion.map((city)=>(
           <li key={city.id}>
@@ -29,6 +21,14 @@ const ShowArea: React.FC = () => {
       <ul style={{borderTop: "1px solid black"}}>
         <li className="region"><Link href="/kanto"><a>東北</a></Link></li>
         {TouhokuRegion.map((city)=>(
+          <li key={city.id}>
+            <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
+          </li>
+        ))}
+      </ul>
+      <ul style={{borderTop: "1px solid black"}}>
+        <li className="region"><Link href="/kanto"><a>中部</a></Link></li>
+        {ChubuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
           </li>

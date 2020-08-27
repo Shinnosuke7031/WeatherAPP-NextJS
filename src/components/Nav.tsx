@@ -7,6 +7,7 @@ const Nav: FC = () => {
       <Link href="/"><a>Home</a></Link>
       <Link href="/ja-weather"><a>全国</a></Link>
       <Link href="/touhoku"><a>東北</a></Link>
+      <Link href="/chubu"><a>中部</a></Link>
       <Link href="/kanto"><a>関東</a></Link>
       
 

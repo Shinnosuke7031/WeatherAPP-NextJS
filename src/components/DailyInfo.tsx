@@ -50,16 +50,16 @@ const ShowDailyInfo: React.FC<TypeProps> = (props) => {
       <style jsx>{`
         .container {
           margin: 40px auto 70px;
-          width: 800px;
+          width: 100%;
         }
         .hourly-title {
-          margin: 0;
+          margin: 0 auto;
           width: 800px;
           font-size: 30px;
           text-align: center;
         }
         .wrap {
-          margin: 10px 0 0 0;
+          margin: 10px auto 0;
           display: flex;
           flex-direction: row;
           justify-content: center;

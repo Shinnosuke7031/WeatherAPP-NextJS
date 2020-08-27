@@ -62,6 +62,10 @@ const Layout = (props) => (
         div {
           margin: 0;
         }
+        input, button, textarea, select {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+      }
       `}</style>
 
   </div>

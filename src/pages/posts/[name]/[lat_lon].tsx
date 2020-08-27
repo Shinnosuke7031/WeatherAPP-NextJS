@@ -49,6 +49,7 @@ const CurrentWeatherEachCity: React.FC = () => {
   const ShowName = router.query.name;
   const posi = router.query.lat_lon;
   const { data, error } = useSWR('https://api.openweathermap.org/data/2.5/onecall?APPID=' + process.env.WEATHER_API_KEY + '&units=metric' + posi, fetcher);
+  
   if (error) {
     return (
       <Layout>
@@ -102,10 +103,10 @@ const CurrentWeatherEachCity: React.FC = () => {
 
         </div>
 
-        <ShowHourlyInfo hourlyInfo={HourlyInfo} />
 
       </div>
 
+      <ShowHourlyInfo hourlyInfo={HourlyInfo} />
       <ShowDailyInfo dailyInfo={DailyInfo} />
 
       <p className="back" onClick={() => router.back()}>戻る</p>
@@ -143,16 +144,14 @@ const CurrentWeatherEachCity: React.FC = () => {
         }
         .container {
           margin: 0 auto;
-          width: 1200px;
+          width: 100%;
           text-align: center;
           font-size: 15px;
-          display: flex;
-          justify-content: center;
         }
         .box {
           border-bottom: 1px dotted black;
           width: 250px;
-          margin: 0 20px 0 0;
+          margin: 0 auto;
         }
         .back {
           font-size: 16px;
