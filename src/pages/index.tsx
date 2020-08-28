@@ -17,7 +17,6 @@ const Index = () => (
     <p>今後も改善、および対応エリアやコンテンツの追加を行います。</p>
 
     <ShowArea />
-
     
     <style jsx>{`
       h1 {

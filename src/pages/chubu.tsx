@@ -98,6 +98,46 @@ const Weather: FC = () => (
         top: 140px;
         left: 160px;
       }
+      .Fukui {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 180px;
+        left: 140px;
+      }
+      .Gifu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 215px;
+        left: 182px;
+      }
+      .Nagoya {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 245px;
+        left: 195px;
+      }
+      .Shizuoka {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 255px;
+        left: 260px;
+      }
+      .Kofu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 210px;
+        left: 285px;
+      }
       .back {
           font-size: 16px;
           color: black;

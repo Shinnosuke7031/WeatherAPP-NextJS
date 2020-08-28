@@ -5,6 +5,12 @@ import React, {useState, useEffect, useMemo} from 'react';
 import TouhokuRegion from '../api/TouhokuRegion';
 import KantouRegion from '../api/KantoRegion';
 import ChubuRegion from '../api/ChubuRegion';
+import KinkiRegion from '../api/KinkiRegion';
+import ChugokuRegion from '../api/ChugokuRegion';
+import ShikokuRegion from '../api/ShikokuRegion';
+import KyushuRegion from '../api/KyushuRegion';
+import Hokkaido from '../api/Hokkaido';
+import Okinawa from '../api/Okinawa';
 
 interface TypeArea {
   id: number;
@@ -24,7 +30,7 @@ const NarrowDown: React.FC = () => {
   
   useEffect(() => {
     const area = [
-      ...TouhokuRegion, ...KantouRegion, ...ChubuRegion
+      ...Hokkaido, ...TouhokuRegion, ...KantouRegion, ...ChubuRegion, ...KinkiRegion, ...ChugokuRegion, ...ShikokuRegion, ...KyushuRegion, ...Okinawa
     ];
     setAllArea(area);
     setSearchArea(area);
