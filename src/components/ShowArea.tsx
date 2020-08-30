@@ -17,7 +17,7 @@ const ShowArea: React.FC = () => {
   return (
     <div className="container">      
       <ul>
-        <li className="region" style={{padding: "0 10px 0 0", margin: "0 10px 0 1.5px"}}><Link href="/kanto"><a>北海道</a></Link></li>
+        <li className="region" style={{padding: "0 10px 0 0", margin: "0 10px 0 1.5px"}}><Link href="/hokkaido"><a>北海道</a></Link></li>
         {Hokkaido.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -33,7 +33,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>東北</a></Link></li>
+        <li className="region"><Link href="/touhoku"><a>東北</a></Link></li>
         {TouhokuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -41,7 +41,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>中部</a></Link></li>
+        <li className="region"><Link href="/chubu"><a>中部</a></Link></li>
         {ChubuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -49,7 +49,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>近畿</a></Link></li>
+        <li className="region"><Link href="/kinki"><a>近畿</a></Link></li>
         {KinkiRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -57,7 +57,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>中国</a></Link></li>
+        <li className="region"><Link href="/chugoku"><a>中国</a></Link></li>
         {ChugokuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -65,7 +65,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>四国</a></Link></li>
+        <li className="region"><Link href="/shikoku"><a>四国</a></Link></li>
         {ShikokuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -73,7 +73,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>九州</a></Link></li>
+        <li className="region"><Link href="/kyushu"><a>九州</a></Link></li>
         {KyushuRegion.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
@@ -81,7 +81,7 @@ const ShowArea: React.FC = () => {
         ))}
       </ul>
       <ul style={{borderTop: "1px solid black"}}>
-        <li className="region"><Link href="/kanto"><a>沖縄</a></Link></li>
+        <li className="region"><Link href="/okinawa"><a>沖縄</a></Link></li>
         {Okinawa.map((city)=>(
           <li key={city.id}>
             <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
