@@ -2,15 +2,17 @@ import Link from 'next/link';
 import React, {useState, useEffect, useMemo} from 'react';
 
 //import JapanArea from '../api/JapanArea';
-import TouhokuRegion from '../api/TouhokuRegion';
-import KantouRegion from '../api/KantoRegion';
-import ChubuRegion from '../api/ChubuRegion';
-import KinkiRegion from '../api/KinkiRegion';
-import ChugokuRegion from '../api/ChugokuRegion';
-import ShikokuRegion from '../api/ShikokuRegion';
-import KyushuRegion from '../api/KyushuRegion';
-import Hokkaido from '../api/Hokkaido';
-import Okinawa from '../api/Okinawa';
+import TouhokuRegion from '../area/TouhokuRegion';
+import KantouRegion from '../area/KantoRegion';
+import ChubuRegion from '../area/ChubuRegion';
+import KinkiRegion from '../area/KinkiRegion';
+import ChugokuRegion from '../area/ChugokuRegion';
+import ShikokuRegion from '../area/ShikokuRegion';
+import KyushuRegion from '../area/KyushuRegion';
+import Hokkaido from '../area/Hokkaido';
+import Okinawa from '../area/Okinawa';
+
+import styles from '../styles/animation.module.css';
 
 interface TypeArea {
   id: number;
@@ -59,7 +61,7 @@ const NarrowDown: React.FC = () => {
                         <ul>
                           {filteredTask.map((city, index)=>(
                             <li key={index}>
-                              <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={city.name}>{city.show}</a></Link>
+                              <Link href="/posts/[name]/[lat_lon]" as={`/posts/${city.show}/${city.lat_lon}`}><a className={`${city.name} ${styles.show_line_from_left} ${styles.change_color_from_left}`}>{city.show}</a></Link>
                             </li>
                           ))}
                         </ul> ;

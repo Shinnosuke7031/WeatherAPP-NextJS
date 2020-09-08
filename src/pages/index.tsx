@@ -21,7 +21,7 @@ const Index = () => (
     <style jsx>{`
       h1 {
         margin: 30px auto;
-        width: 500px;
+        width: 100%;
         text-align: center;
       }
       p {

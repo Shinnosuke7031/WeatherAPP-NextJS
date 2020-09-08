@@ -1,0 +1,25 @@
+.show_line_from_left {
+  position: relative;
+  transition: 0.5s;
+}
+.show_line_from_left::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 0;
+  height: 1px;
+  background-color: #3CB371	 !important;
+  transition: 0.5s;
+}
+.show_line_from_left:hover::after {
+  width: 100%;
+}
+
+.change_color_from_left {
+  transition: 0.5s;
+}
+.change_color_from_left:hover {
+  color: #3CB371	 !important;
+  transition: 0.5s;
+}

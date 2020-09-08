@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import ShikokuRegion from '../api/ShikokuRegion';
+import ShikokuRegion from '../area/ShikokuRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

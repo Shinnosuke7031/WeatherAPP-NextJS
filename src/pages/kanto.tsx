@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import KantoRegion from '../api/KantoRegion';
+import KantoRegion from '../area/KantoRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

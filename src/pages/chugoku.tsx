@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import ChugokuRegion from '../api/ChugokuRegion';
+import ChugokuRegion from '../area/ChugokuRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

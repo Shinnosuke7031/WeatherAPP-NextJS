@@ -49,7 +49,7 @@ const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
         }
         .hourly-title {
           margin: 0 auto;
-          width: 800px;
+          width: 100%;
           font-size: 30px;
           text-align: center;
         }
@@ -59,7 +59,7 @@ const ShowHourlyInfo: React.FC<TypeProps> = (props) => {
           flex-direction: row;
           justify-content: center;
           flex-wrap: wrap;
-          width: 800px;
+          width: 100%;
           text-align: center;
         }
         .nav {

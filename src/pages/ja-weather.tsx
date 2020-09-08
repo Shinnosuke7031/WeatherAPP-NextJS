@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import JapanArea from '../api/JapanArea';
+import JapanArea from '../area/JapanArea';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

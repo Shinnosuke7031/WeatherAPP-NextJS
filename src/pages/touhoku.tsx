@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import TouhokuRegion from '../api/TouhokuRegion';
+import TouhokuRegion from '../area/TouhokuRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import KyushuRegion from '../api/KyushuRegion';
+import KyushuRegion from '../area/KyushuRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

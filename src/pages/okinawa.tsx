@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import Okinawa from '../api/Okinawa';
+import Okinawa from '../area/Okinawa';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

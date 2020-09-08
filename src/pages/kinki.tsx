@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import KinkiRegion from '../api/KinkiRegion';
+import KinkiRegion from '../area/KinkiRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';

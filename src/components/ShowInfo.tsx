@@ -49,6 +49,7 @@ const ShowInfo: React.FC<TypeProps> = (props) => {
   const router = useRouter();
   const ShowName = props.name;
   const { data, error } = useSWR(`https://api.openweathermap.org/data/2.5/onecall?APPID=${process.env.WEATHER_API_KEY}&units=metric${props.posi}`, fetcher);
+  
   if (error) {
     return (
       <div>{error.message}</div>

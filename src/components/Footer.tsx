@@ -6,11 +6,12 @@ const linkStyle = {
 
 const Footer = () => (
     <div>
+      <Link href="/aboutme"><a>このサイトについて</a></Link>
       <a href="https://shinnosuke7031.github.io/Portfolio_with_React/" target="_blank" rel="noopener noreferrer">My Portfolio Site</a>
 
       <style jsx>{`
         div {
-          width: 100vw;
+          width: 100%;
           height: 50px;
           margin: 0 auto;
           padding: 10px 0;
@@ -22,6 +23,8 @@ const Footer = () => (
         }
         a {
           color: black;
+          display: inline-block;
+          margin: 0 50px 0 50px;
         }
       `}</style>
     </div>

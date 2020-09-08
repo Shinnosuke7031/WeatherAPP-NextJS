@@ -4,6 +4,8 @@ import React from 'react';
 import ShowInfo from '../../../components/ShowInfo'
 import ShowArea from '../../../components/ShowArea';
 
+import Head from 'next/head';
+
 type TypeInfo = {
   temp: number;
   humidity: number;
@@ -47,6 +49,9 @@ const CurrentWeatherEachCity: React.FC = () => {
 
   return (
     <Layout>
+      <Head>
+        <title key="title">Weather Information</title>
+      </Head>
       <ShowInfo name={name} posi={posi} />
       <ShowArea />
     </Layout>

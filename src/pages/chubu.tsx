@@ -1,6 +1,6 @@
 import Layout from '../components/MyLayout';
 import ShowArea from '../components/ShowArea';
-import ChubuRegion from '../api/ChubuRegion';
+import ChubuRegion from '../area/ChubuRegion';
 import Link from 'next/link';
 import Head from 'next/head';
 import {FC} from 'react';
