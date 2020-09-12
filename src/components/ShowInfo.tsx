@@ -1,9 +1,11 @@
 import React from 'react';
-import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
+import CurrentInfo from './CurrentInfo';
 import ShowHourlyInfo from './HourlyInfo';
 import ShowDailyInfo from './DailyInfo';
+
+import FetchData from './FetchData';
 
 type TypeInfo = {
   temp: number;
@@ -48,14 +50,14 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 const ShowInfo: React.FC<TypeProps> = (props) => {
   const router = useRouter();
   const ShowName = props.name;
-  const { data, error } = useSWR(`https://api.openweathermap.org/data/2.5/onecall?APPID=${process.env.WEATHER_API_KEY}&units=metric${props.posi}`, fetcher);
   
-  if (error) {
+  const data = FetchData(props.posi);
+  if (data.isError) {
     return (
-      <div>{error.message}</div>
+      <div>{data.isError.message}</div>
     );
   }
-  else if (!data) {
+  else if (data.isLoading) {
     return (
       <div style={{textAlign: "center" ,margin: "20px auto", height: "100%", backgroundColor: "#EEEEEE"}}>
         <p style={{fontSize: "20px"}}>Loading...</p>
@@ -63,41 +65,19 @@ const ShowInfo: React.FC<TypeProps> = (props) => {
       </div>
       );
     }
-  const CurrentInfo: TypeInfo = setCurrentData(data.current);
-  const HourlyInfo: TypeInfo2[] = setHourlyInfo(data.hourly);
-  const DailyInfo: TypeDailyInfo[] = setDailyInfo(data.daily);
+  const CurrentInfo_: TypeInfo = setCurrentData(data.data.current);
+  const HourlyInfo: TypeInfo2[] = setHourlyInfo(data.data.hourly);
+  const DailyInfo: TypeDailyInfo[] = setDailyInfo(data.data.daily);
   return (
     <div>
       <div className="container">
-        <div className="box">
-          <h1>現在の天気 </h1>
-          <div style={{borderTop: "1px dotted black"}}></div>
-          <p>({`${CurrentInfo.date[0]} ${CurrentInfo.date[1]}時${CurrentInfo.date[2]}分`})</p>
-          <h2>{ShowName}</h2>
+        <h2>{ShowName}</h2>
 
-          <div className="current-info">
-            <p className="current-text">気温</p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.temp}℃ </p>
-          </div>
-          <div className="current-info">
-            <p className="current-text">湿度 </p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.humidity}% </p>
-          </div>
-          <div className="current-info">
-            <p className="current-text">{CurrentInfo.deg} </p> <p className="center-sig">：</p> <p className="current-text"> {CurrentInfo.speed} m/s</p>
-          </div>
+        <CurrentInfo currentInfo={CurrentInfo_} />
+        <ShowHourlyInfo hourlyInfo={HourlyInfo} />
+        <ShowDailyInfo dailyInfo={DailyInfo} />
 
-          <div className="weather-info">
-            <p> {CurrentInfo.weather} </p>
-            <div>
-              <img src={`https://openweathermap.org/img/w/`+ CurrentInfo.icon + `.png` } />
-            </div>
-          </div>
-
-        </div>
-
-      <ShowHourlyInfo hourlyInfo={HourlyInfo} />
-      <ShowDailyInfo dailyInfo={DailyInfo} />
-
-      <p className="back" onClick={() => router.back()}>戻る</p>
+        <p className="back" onClick={() => router.back()}>戻る</p>
 
       </div>
 
@@ -114,21 +94,9 @@ const ShowInfo: React.FC<TypeProps> = (props) => {
         }
         h2 {
           margin: 0 auto;
-          padding: 5px 0 0 0;
-        }
-        .current-info {
-          display: flex;
-          justify-content: center;
-        }
-        .current-text {
-          width: 90px;
-          height: 20px;
-          margin: 5px 0;
-        }
-        .center-sig {
-          width: 10px;
-          height: 20px;
-          margin: 5px 0;
+          padding: 0 0 30px 0;
+          font-size: 30px;
+          color: rgb(0, 32, 214);
         }
         .container {
           margin: 0 auto;
